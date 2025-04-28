@@ -1,104 +1,195 @@
 <!DOCTYPE html>
-<html lang="ar">
+<html lang="ar" dir="rtl">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>الله يركك عافية رك</title>
-    <style>
-        body {
-            font-family: 'Arial', sans-serif;
-            text-align: center;
-            margin: 0;
-            padding: 0;
-            background-color: #f4f4f4;
-        }
-        header {
-            background: #ddd;
-            color: black;
-            padding: 20px 0;
-            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
-        }
-        main {
-            padding: 20px;
-            color: #333;
-        }
-        footer {
-            background: none;
-            color: black;
-            padding: 20px 0;
-            position: fixed;
-            bottom: 0;
-            width: 100%;
-        }
-        .social-icons {
-            margin: 20px auto;
-            display: flex;
-            justify-content: center;
-            gap: 20px;
-        }
-        .social-icons a img {
-            width: 40px;
-            height: 40px;
-            border-radius: 50%;
-            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.2);
-        }
-        .custom-image {
-            margin-top: 20px;
-        }
-        .custom-image img {
-            max-width: 100%;
-            height: auto;
-            border-radius: 12px;
-            box-shadow: 0 4px 8px rgba(0,0,0,0.1);
-        }
-        p {
-            font-size: 18px;
-            line-height: 1.6;
-        }
-        .about-us {
-            margin-top: 40px;
-            padding: 20px;
-            background-color: #fff;
-            box-shadow: 0 4px 6px rgba(0,0,0,0.1);
-            border-radius: 10px;
-            max-width: 600px;
-            margin-left: auto;
-            margin-right: auto;
-        }
-    </style>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>الله يركك عافية رك</title>
+  <style>
+    body {
+      font-family: 'Cairo', sans-serif;
+      margin: 0;
+      padding: 0;
+      background: linear-gradient(to bottom, #e0f7fa, #fff);
+      overflow-x: hidden;
+    }
+    header {
+      background: #ddd;
+      color: black;
+      padding: 20px 0;
+      text-align: center;
+      box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    }
+    main {
+      padding: 20px;
+      text-align: center;
+      color: #333;
+      position: relative;
+      z-index: 1;
+    }
+    footer {
+      background: none;
+      color: black;
+      padding: 20px 0;
+      position: fixed;
+      bottom: 0;
+      width: 100%;
+      text-align: center;
+      z-index: 1;
+    }
+    /* الشريط الجانبي */
+    .sidebar {
+      position: fixed;
+      top: 50%;
+      right: 0;
+      transform: translateY(-50%);
+      background: linear-gradient(145deg, #ffffff, #e0e0e0);
+      border-radius: 10px 0 0 10px;
+      box-shadow: inset 2px 2px 8px rgba(0, 0, 0, 0.1), -2px 2px 8px rgba(0,0,0,0.2);
+      padding: 10px;
+      transition: width 0.5s ease;
+      overflow: hidden;
+      width: 30px; /* العرض قبل الضغط */
+      z-index: 2;
+    }
+    .sidebar.open {
+      width: 100px; /* العرض عند الفتح */
+    }
+    .sidebar-toggle {
+      background: none;
+      border: none;
+      cursor: pointer;
+      font-size: 28px;
+      margin-bottom: 10px;
+      transition: transform 0.4s ease;
+    }
+    .sidebar.open .sidebar-toggle {
+      transform: rotate(180deg);
+    }
+    .social-icons {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 15px;
+      margin-top: 10px;
+      opacity: 0;
+      transform: translateX(50px);
+      transition: opacity 0.5s ease, transform 0.5s ease;
+    }
+    .sidebar.open .social-icons {
+      opacity: 1;
+      transform: translateX(0);
+    }
+    .social-icons a img {
+      width: 35px;  /* تقليل حجم الأيقونات */
+      height: 35px;
+      border-radius: 50%;
+      box-shadow: 0 8px 15px rgba(0,0,0,0.2);
+      transition: transform 0.3s, box-shadow 0.3s;
+    }
+    /* لمعة عند المرور */
+    .social-icons a img:hover {
+      transform: scale(1.2);
+      box-shadow: 0 0 15px rgba(0, 140, 255, 0.7);
+    }
+    /* حركة النط */
+    @keyframes pop {
+      0% {
+        transform: scale(0);
+        opacity: 0;
+      }
+      60% {
+        transform: scale(1.2);
+        opacity: 1;
+      }
+      100% {
+        transform: scale(1);
+      }
+    }
+    .social-icons a:nth-child(1) img { animation-delay: 0.2s; }
+    .social-icons a:nth-child(2) img { animation-delay: 0.4s; }
+    .social-icons a:nth-child(3) img { animation-delay: 0.6s; }
+    .social-icons a:nth-child(4) img { animation-delay: 0.8s; }
+
+    /* صورة جميلة */
+    .custom-image {
+      margin-top: 30px;
+    }
+    .custom-image img {
+      max-width: 100%;
+      height: auto;
+      border-radius: 20px;
+      box-shadow: 0 8px 16px rgba(0,0,0,0.2);
+      transition: transform 0.4s;
+    }
+    .custom-image img:hover {
+      transform: scale(1.05);
+    }
+    p {
+      font-size: 20px;
+      line-height: 1.8;
+      margin: 15px 0;
+    }
+    .about-us {
+      margin-top: 40px;
+      padding: 20px;
+      background-color: #ffffffcc;
+      box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+      border-radius: 15px;
+      max-width: 600px;
+      margin-left: auto;
+      margin-right: auto;
+    }
+  </style>
 </head>
 <body>
-    <header>
-        <!-- العنوان القديم تم حذفه حسب الطلب -->
-    </header>
 
-    <main>
-        <p>🦋
-تمسّكْ بالدُّعَاء كَأنّكَ لا تَعرِِف عِلَاجَاً غَيره .</p>
-        <p>"دع السَّواد الذِي يغشى ضمائِرهم وعِش نقيًا فداك القال والقِيلُ"</p>
+<div class="sidebar" id="sidebar">
+  <button class="sidebar-toggle" id="toggleButton" onclick="toggleSidebar()">&#10148;</button>
+  <div class="social-icons">
+    <a href="https://wa.me/249127406612" target="_blank">
+      <img src="https://upload.wikimedia.org/wikipedia/commons/6/6b/WhatsApp.svg" alt="واتساب">
+    </a>
+    <a href="https://www.instagram.com/wb_xw" target="_blank">
+      <img src="https://upload.wikimedia.org/wikipedia/commons/a/a5/Instagram_icon.png" alt="إنستغرام">
+    </a>
+    <a href="https://www.facebook.com/itz.hasko" target="_blank">
+      <img src="https://upload.wikimedia.org/wikipedia/commons/1/1b/Facebook_icon.svg" alt="فيسبوك">
+    </a>
+    <a href="https://github.com/YourGitHubUsername" target="_blank">
+      <img src="https://github.githubassets.com/images/modules/logos_page/GitHub-Mark.png" alt="GitHub">
+    </a>
+  </div>
+</div>
 
-        <div class="custom-image">
-            <img src="https://i.ibb.co/spt315sC/3f66540b167a83f842acc9ac8d7ddb73.jpg" alt="صورتك هنا">
-        </div>
+<header></header>
 
-        <div class="about-us">
-            <h2>About Us</h2>
-            <p>قُلْ إِنَّ صَلَاتِي وَنُسُكِي وَمَحْيَايَ وَمَمَاتِي لِلَّهِ رَبِّ الْعَالَمِينَ 🤍🌿</p>
-        </div>
-    </main>
+<main>
+  <p>🦋 تمسّكْ بالدُّعَاء كَأنّكَ لا تَعرِِف عِلَاجَاً غَيره.</p>
+  <p>"دع السَّواد الذِي يغشى ضمائِرهم وعِش نقيًا فداك القال والقِيلُ"</p>
+  <div class="custom-image">
+    <img src="https://i.ibb.co/spt315sC/3f66540b167a83f842acc9ac8d7ddb73.jpg" alt="صورتك هنا">
+  </div>
+  <div class="about-us">
+    <h2>About Us</h2>
+    <p>قُلْ إِنَّ صَلَاتِي وَنُسُكِي وَمَحْيَايَ وَمَمَاتِي لِلَّهِ رَبِّ الْعَالَمِينَ 🤍🌿</p>
+  </div>
+</main>
 
-    <footer>
-        <div class="social-icons">
-            <a href="https://wa.me/249127406612" target="_blank">
-                <img src="https://upload.wikimedia.org/wikipedia/commons/6/6b/WhatsApp.svg" alt="واتساب">
-            </a>
-            <a href="https://www.instagram.com/wb_xw" target="_blank">
-                <img src="https://upload.wikimedia.org/wikipedia/commons/a/a5/Instagram_icon.png" alt="إنستغرام">
-            </a>
-            <a href="https://www.facebook.com/itz.hasko" target="_blank">
-                <img src="https://upload.wikimedia.org/wikipedia/commons/1/1b/Facebook_icon.svg" alt="فيسبوك">
-            </a>
-        </div>
-    </footer>
+<footer></footer>
+
+<script>
+  function toggleSidebar() {
+    const sidebar = document.getElementById('sidebar');
+    const toggleButton = document.getElementById('toggleButton');
+    sidebar.classList.toggle('open');
+
+    if (sidebar.classList.contains('open')) {
+      toggleButton.innerHTML = '&#10006;'; // علامة X
+    } else {
+      toggleButton.innerHTML = '&#10148;'; // سهم
+    }
+  }
+</script>
+
 </body>
 </html>
